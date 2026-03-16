@@ -1,12 +1,10 @@
 @use "sass:color";
 
+/// Border variables
 $border-color: #ccc;
 $border-radius: 4px;
 
-$primary-color: #007bff;
-$primary-hover: #0056b3;
-
-
+/// Primary form mixin
 @mixin form-control {
   padding: 8px;
   border: 1px solid $border-color;
@@ -14,6 +12,7 @@ $primary-hover: #0056b3;
   font-size: 1rem;
 }
 
+/// Primary button mixin
 @mixin btn-base {
   padding: 10px 20px;
   cursor: pointer;
@@ -23,7 +22,6 @@ $primary-hover: #0056b3;
   transition: background-color 0.2s ease;
 }
 
- 
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -82,11 +80,11 @@ $primary-hover: #0056b3;
 
   .btn-calculate {
     @include btn-base;
-    background-color: $primary-color;
+    background-color: #007bff;
     color: white;
 
     &:hover:not(:disabled) {
-      background-color: $primary-hover;
+      background-color: #0056b3;
     }
 
     &:disabled {
@@ -97,6 +95,7 @@ $primary-hover: #0056b3;
   }
 }
 
+/// The box containing the calculated GPA and the status message.
 .results-box {
   margin-top: 30px;
   padding: 20px;
