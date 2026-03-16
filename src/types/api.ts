@@ -12,6 +12,8 @@ export interface Course {
  */
 export interface GpaCalculationRequest {
     courses: Course[];
+    currentGpa?: number;
+    pastCredits?: number;
 }
 
 /**
