@@ -9,6 +9,9 @@ import './App.scss';
  */
 function App() {
 
+  const [currentGpa, setCurrentGpa] = useState<number | ''>('');
+  const [pastCreditHours, setPastCredits] = useState<number | ''>('');
+
   const [courses, setCourses] = useState<Course[]>([
     { courseName: 'Math 1111: Sample Class', creditHours: 3, grade: 'A' }
   ]);
@@ -51,7 +54,11 @@ function App() {
   const handleCalculate = async () => {
     setLoading(true);
     
-    const payload = { courses: courses };
+    const payload = { 
+      courses: courses,
+      currentGpa: currentGpa === '' ? undefined : currentGpa,
+      pastCreditHours: pastCreditHours === '' ? undefined : pastCreditHours
+    };
 
     try {
       const response = await fetch("http://localhost:5126/api/gpa/calculate-gpa", {
@@ -73,6 +80,31 @@ function App() {
     <div className="container">
       <h1>GPA Calculator</h1>
       
+      <div className="cumulative-inputs">
+        <div className="input-group">
+          <label>Current GPA</label>
+          <input 
+            type="number" 
+            step="0.01"
+            placeholder="e.g. 3.5"
+            value={currentGpa}
+            onChange={(e) => setCurrentGpa(e.target.value === '' ? '' : Number(e.target.value))}
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Past Credits</label>
+          <input 
+            type="number" 
+            placeholder="e.g. 60"
+            value={pastCreditHours}
+            onChange={(e) => setPastCredits(e.target.value === '' ? '' : Number(e.target.value))}
+          />
+        </div>
+      </div>
+
+<hr />
+
       {courses.map((course, index) => (
         <div key={index} className="course-row">
           <input 
