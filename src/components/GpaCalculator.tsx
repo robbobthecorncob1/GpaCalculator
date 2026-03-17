@@ -7,6 +7,7 @@ import type { Course, GpaCalculationResponse } from '../types/api'
 interface GpaCalculatorProps {
   currentGpa: number | '';
   pastCreditHours: number | '';
+  onCalculateSuccess?: (calculatedGpa: number, totalCredits: number) => void;
 }
 
 /**
@@ -14,8 +15,9 @@ interface GpaCalculatorProps {
  * the backend to calculate the semester or cumulative GPA.
  * @param currentGpa - The user's existing cumulative GPA (if provided).
  * @param pastCreditHours - The total credits earned prior to the current courses (if provided).
+ * @param onCalculateSuccess - Optional callback fired upon a successful API calculation.
  */
-export default function GpaCalculator({ currentGpa, pastCreditHours }: GpaCalculatorProps) {  
+export default function GpaCalculator({ currentGpa, pastCreditHours, onCalculateSuccess }: GpaCalculatorProps) {  
     const [result, setResult] = useState<GpaCalculationResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [showCourses, setShowCourses] = useState<boolean>(true);
@@ -74,6 +76,9 @@ export default function GpaCalculator({ currentGpa, pastCreditHours }: GpaCalcul
 
       const data: GpaCalculationResponse = await response.json();
       setResult(data);
+      if (onCalculateSuccess) {
+          onCalculateSuccess(data.calculatedGpa, data.totalCreditHours);
+      }
     } catch (error) {
       console.error("Connection failed:", error);
     } finally {
