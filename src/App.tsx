@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Course, GpaCalculationResponse } from './types/api'
+import type { Course, GpaCalculationResponse, TargetGpaResponse } from './types/api'
 import './App.scss';
 
 /**
@@ -11,13 +11,17 @@ function App() {
 
   const [currentGpa, setCurrentGpa] = useState<number | ''>('');
   const [pastCreditHours, setPastCredits] = useState<number | ''>('');
+  const [targetGpa, setTargetGpa] = useState<number>(0);
+  const [newCreditHours, setNewCreditHours] = useState<number>(0);
+  
+  const [result, setResult] = useState<GpaCalculationResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [targetResponse, setTargetResponse] = useState<TargetGpaResponse | null>(null);
+  const [targetLoading, setTargetLoading] = useState<boolean>(false);
 
   const [courses, setCourses] = useState<Course[]>([
     { courseName: 'Math 1111: Sample Class', creditHours: 3, grade: 'A' }
   ]);
-  
-  const [result, setResult] = useState<GpaCalculationResponse | null>(null);
-  const [loading, setLoading] = useState(false);
 
   /**
    * Adds a new, default course to the bottom of the course list.
@@ -76,6 +80,45 @@ function App() {
     }
   };
 
+  /**
+   * Submits the current GPA, target GPA, past credit hours, and future credit hours to the .NET backend to calculate the minimum required GPA.
+   * Toggles the loading state and updates the UI with the final result.
+   */
+  const handleCalculateTarget = async () => {
+    if (newCreditHours <= 0) {
+      alert("Please enter at least 1 future credit hour.");
+      return;
+    }
+
+    setTargetLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5126/api/gpa/calculate-target', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentGpa: currentGpa,
+          pastCreditHours: pastCreditHours,
+          targetGpa: targetGpa,
+          newCreditHours: newCreditHours
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setTargetResponse(data);
+      } else {
+        console.error("Failed to calculate target GPA");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    } finally {
+      setTargetLoading(false);
+    }
+  };
+
   return (
     <div className="container">
       <h1>GPA Calculator</h1>
@@ -103,7 +146,7 @@ function App() {
         </div>
       </div>
 
-<hr />
+      <hr />
 
       {courses.map((course, index) => (
         <div key={index} className="course-row">
@@ -166,6 +209,48 @@ function App() {
           {result.message && <p>{result.message}</p>}
         </div>
       )}
+
+      <hr />
+
+      <div>
+        <h2>Target GPA Planner</h2>
+        <p>Plan your future semesters based on your current standing.</p>
+
+        <div>
+          <label>Desired Target GPA</label>
+          <input 
+            type="number" 
+            step="0.01" 
+            value={targetGpa} 
+            onChange={(e) => setTargetGpa(parseFloat(e.target.value) || 0)} 
+          />
+        </div>
+
+        <div>
+          <label>Future Credit Hours</label>
+          <input 
+            type="number" 
+            step="0.5" 
+            value={newCreditHours} 
+            onChange={(e) => setNewCreditHours(parseFloat(e.target.value) || 0)} 
+          />
+        </div>
+
+        <button onClick={handleCalculateTarget} disabled={targetLoading}>
+          {targetLoading ? 'Calculating...' : 'Calculate Target'}
+        </button>
+
+        {targetResponse && (
+          <div>
+              <h3>Required GPA: {targetResponse.requiredGpa}</h3>
+            <p>{targetResponse.message}</p>
+          </div>
+        )}
+      </div>
+
+
+
+      
     </div>
   )
 }
