@@ -12,11 +12,17 @@ function App() {
   const [currentGpa, setCurrentGpa] = useState<number | ''>('');
   const [pastCreditHours, setPastCredits] = useState<number | ''>('');
 
+  const [calculatedGpa, setCalculatedGpa] = useState<number | null>(null);
+  const [calculatedTotalCredits, setCalculatedTotalCredits] = useState<number | null>(null);
+  
   const [showCurrentGpaInformation, setShowCurrentGpaInformation] = useState<boolean>(false);
   const [showTargetPlanner, setShowTargetPlanner] = useState<boolean>(false);
 
   const activeCurrentGpa = showCurrentGpaInformation ? currentGpa : '';
   const activePastCredits = showCurrentGpaInformation ? pastCreditHours : '';
+
+  const plannerGpa = calculatedGpa !== null ? calculatedGpa : (activeCurrentGpa === '' ? 0 : activeCurrentGpa);
+  const plannerCredits = calculatedTotalCredits !== null ? calculatedTotalCredits : (activePastCredits === '' ? 0 : activePastCredits);
 
   return (
     <div className="container">
@@ -64,13 +70,20 @@ function App() {
 
         {showTargetPlanner && (
         <>
-          <TargetPlanner currentGpa={activeCurrentGpa} pastCreditHours={activePastCredits} />
+          <TargetPlanner currentGpa={plannerGpa} pastCreditHours={plannerCredits} />
         </>
         )}
      </div>
 
       <hr/>
-      <GpaCalculator currentGpa={activeCurrentGpa} pastCreditHours={activePastCredits} />
+      <GpaCalculator 
+        currentGpa={activeCurrentGpa} 
+        pastCreditHours={activePastCredits} 
+        onCalculateSuccess={(newGpa, totalCredits) => {
+            setCalculatedGpa(newGpa);
+            setCalculatedTotalCredits(totalCredits);
+        }}
+      />
 
     </div>
   )
