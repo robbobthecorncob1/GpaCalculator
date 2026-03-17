@@ -23,3 +23,15 @@ export interface GpaCalculationResponse {
     calculatedGpa: number;
     message: string;
 }
+
+export interface TargetGpaRequest {
+  currentGpa: number;
+  pastCreditHours: number;
+  targetGpa: number;
+  newCreditHours: number;
+}
+
+export interface TargetGpaResponse {
+  requiredGpa: number;
+  message: string;
+}
