@@ -1,0 +1,31 @@
+@use "sass:color";
+@use '../styles/variables' as *;
+
+/// Wrapper for the target inputs, styled distinctly from course blocks
+.plannerContainer {
+  display: flex;
+  gap: 15px;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: $border-radius;
+  border: 1px dashed $border-color;
+  margin-bottom: 20px;
+}
+
+/// Individual input field layout
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+  }
+
+  input {
+    @include form-control;
+  }
+}
