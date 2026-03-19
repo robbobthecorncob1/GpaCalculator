@@ -1,0 +1,52 @@
+@use "sass:color";
+
+// --- Variables ---
+
+/// Standard border color for form inputs and containers.
+/// @type Color
+$border-color: #ccc;
+
+/// Standard border radius for UI elements.
+/// @type Number
+$border-radius: 6px;
+
+/// Main brand color used for primary actions and highlights.
+/// @type Color
+$primary-blue: #007bff;
+
+/// Used for destructive actions (e.g., remove buttons) and errors.
+/// @type Color
+$danger-red: #dc3545;
+
+/// Used for secondary actions, borders, and subtle backgrounds.
+/// @type Color
+$light-gray: #e2e6ea;
+
+
+// --- Mixins ---
+
+/// Standard form control styling.
+/// Applies consistent padding, borders, and focus states across all inputs.
+/// @output CSS properties for padding, border, border-radius, font-size, and pseudo-class `:focus`.
+@mixin form-control {
+  padding: 10px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  outline: none;
+  &:focus {
+    border-color: $primary-blue;
+  }
+}
+
+/// Base button styling.
+/// Provides the foundational layout, typography, and transitions for all buttons.
+/// @output CSS properties for padding, cursor, border-radius, typography, and transitions.
+@mixin btn-base {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: $border-radius;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
