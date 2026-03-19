@@ -1,0 +1,70 @@
+@use "sass:color";
+@use '../styles/variables' as *;
+
+/// Main container for a single semester or group of courses.
+.courseBlock {
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/// Header section containing the semester/block title input.
+.blockHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  gap: 15px;
+
+  .inputText {
+    @include form-control;
+    flex: 1;
+    font-weight: bold;
+  }
+}
+
+/// Layout for an individual course entry (Name, Credits, Grade).
+.courseRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  .inputText {
+    @include form-control;
+    flex: 2;
+  }
+
+  .inputNumber {
+    @include form-control;
+    width: 80px;
+  }
+
+  .selectGrade {
+    @include form-control;
+    width: 100px;
+  }
+}
+
+// --- Action Buttons ---
+
+/// Button to delete a specific course row.
+.btnRemove {
+  @include btn-base;
+  padding: 8px 12px;
+  color: white;
+  background-color: $danger-red;
+  &:hover { background-color: color.adjust($danger-red, $lightness: -10%); }
+}
+
+/// Button to add a new course to the current block.
+.btnAdd {
+  @include btn-base;
+  background-color: $light-gray;
+  border: 1px solid color.adjust($light-gray, $lightness: -10%);
+  color: #333;
+  width: 100%;
+  margin-top: 10px;
+  &:hover { background-color: color.adjust($light-gray, $lightness: -10%); }
+}
