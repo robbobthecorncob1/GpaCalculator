@@ -1,8 +1,8 @@
 import GpaDashboard from './components/GpaDashboard';
-import './App.scss';
 
 /**
  * The main application component.
+ * Acts as the top-level wrapper for the layout and routing.
  */
 function App() {
   
