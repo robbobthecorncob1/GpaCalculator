@@ -1,0 +1,123 @@
+@use "sass:color";
+@use '../styles/variables' as *;
+
+/// Main application card wrapper
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* A beautiful, soft shadow */
+}
+
+/// Typography basics
+h1, .shortDesc {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+/// Buttons to show/hide sections
+.btnToggle {
+  @include btn-base;
+  background: none;
+  color: $primary-blue;
+  padding: 5px 0;
+  margin-bottom: 10px;
+  display: block;
+  &:hover { text-decoration: underline; }
+}
+
+/// Layout for the "Current GPA" manual entry section
+.cumulativeInputs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+
+    label { font-weight: 600; font-size: 0.9rem; color: #555; }
+    input { @include form-control; }
+  }
+}
+
+/// Primary action button to trigger the API calculation
+.btnCalculate {
+  @include btn-base;
+  background-color: $primary-blue;
+  color: white;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  margin-top: 20px;
+
+  &:hover:not(:disabled) { background-color: color.adjust($primary-blue, $lightness: -10%); }
+  &:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+/// Dashed button to add a completely new semester/course block
+.btnAddBlock {
+  @include btn-base;
+  background-color: transparent;
+  border: 2px dashed $border-color;
+  color: #555;
+  width: 100%;
+  padding: 15px;
+  &:hover { background-color: #f8f9fa; border-color: #999; }
+}
+
+
+// --- Results Display ---
+
+/// Container for the newly calculated overall GPA
+.resultsBox {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-radius: $border-radius;
+  border: 1px solid color.adjust($border-color, $lightness: -10%); 
+  text-align: center;
+
+  h2 { margin: 0 0 10px 0; color: $primary-blue; }
+}
+
+/// Container for the target GPA goals
+.targetResultsBox {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid $border-color;
+  
+  h2 { color: #28a745; }
+}
+
+// --- Footer ---
+
+/// Source code link footer
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-color;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6c757d;
+
+  a {
+    color: $primary-blue;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
