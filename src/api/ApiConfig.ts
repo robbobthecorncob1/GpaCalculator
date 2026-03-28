@@ -1,7 +1,7 @@
 /**
  * The base url of the GPA API.
  */
-export const API_BASE_URL = 'http://localhost:5126/api/gpa';
+export const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 /**
  * A generic utility function for making POST requests to the backend API.
