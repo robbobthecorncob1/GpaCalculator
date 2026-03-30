@@ -1,5 +1,78 @@
-// -- GLOBAL STYLES ---
-/// Applies a subtle, modern gradient to the entire browser window
+:root {
+  /* Light Theme Variables */
+  --bg-body: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  --bg-card: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --border-color: #ccc;
+  --border-color-darker: #b3b3b3;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  
+  --primary-blue: #007bff;
+  --primary-blue-hover: #0056b3;
+  --success-green: #28a745;
+  --danger-red: #dc3545;
+  --danger-red-hover: #c82333;
+  --light-gray: #e2e6ea;
+  --light-gray-hover: #dae0e5;
+  --light-gray-border: #d3d9df;
+}
+
+[data-theme='dark'] {
+  /* Dark Theme Overrides */
+  --bg-body: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+  --bg-card: #242424;
+  --bg-secondary: #2f2f2f;
+  --text-primary: #f1f1f1;
+  --text-secondary: #bbbbbb;
+  --border-color: #444;
+  --border-color-darker: #333;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  
+  --primary-blue: #3f8cff;
+  --primary-blue-hover: #1a71ff;
+  --success-green: #34d058;
+  --danger-red: #e74c3c; 
+  --danger-red-hover: #c0392b;
+  --light-gray: #3a3a3a;
+  --light-gray-hover: #4a4a4a;
+  --light-gray-border: #555555;
+}
+
 body {
-    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  background: var(--bg-body);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 30px; 
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: all 0.3s ease; 
+  z-index: 1000; 
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--shadow-color);
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+  }
+
+  &:active {
+    transform: translateY(0); 
+  }
 }

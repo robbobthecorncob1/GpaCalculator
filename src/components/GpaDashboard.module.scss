@@ -7,15 +7,15 @@
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Inter', sans-serif;
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* A beautiful, soft shadow */
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 /// Typography basics
 h1, .shortDesc {
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 2rem;
 }
 
@@ -23,7 +23,7 @@ h1, .shortDesc {
 .btnToggle {
   @include btn-base;
   background: none;
-  color: $primary-blue;
+  color: var(--primary-blue);
   padding: 5px 0;
   margin-bottom: 10px;
   display: block;
@@ -42,7 +42,7 @@ h1, .shortDesc {
     gap: 5px;
     flex: 1;
 
-    label { font-weight: 600; font-size: 0.9rem; color: #555; }
+    label { font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); }
     input { @include form-control; }
   }
 }
@@ -50,14 +50,14 @@ h1, .shortDesc {
 /// Primary action button to trigger the API calculation
 .btnCalculate {
   @include btn-base;
-  background-color: $primary-blue;
+  background-color: var(--primary-blue);
   color: white;
   width: 100%;
   padding: 15px;
   font-size: 1.1rem;
   margin-top: 20px;
 
-  &:hover:not(:disabled) { background-color: color.adjust($primary-blue, $lightness: -10%); }
+  &:hover:not(:disabled) { background-color: var(--primary-blue-hover); }
   &:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
@@ -69,8 +69,8 @@ h1, .shortDesc {
 .btnAddBlock {
   @include btn-base;
   background-color: transparent;
-  border: 2px dashed $border-color;
-  color: #555;
+  border: 2px dashed var(--border-color);
+  color: var(--text-secondary);
   width: 100%;
   padding: 15px;
   &:hover { background-color: #f8f9fa; border-color: #999; }
@@ -83,21 +83,23 @@ h1, .shortDesc {
 .resultsBox {
   margin-top: 30px;
   padding: 25px;
-  background-color: #f8f9fa;
+  background-color: var(--bg-secondary);
   border-radius: $border-radius;
-  border: 1px solid color.adjust($border-color, $lightness: -10%); 
+  border: 1px solid var(--border-color-darker);
   text-align: center;
 
-  h2 { margin: 0 0 10px 0; color: $primary-blue; }
+  h2 { 
+    margin: 0 0 10px 0; color: var(--primary-blue);
+  }
 }
 
 /// Container for the target GPA goals
 .targetResultsBox {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid var(--border-color);
   
-  h2 { color: #28a745; }
+  h2 { color: var(--success-green); }
 }
 
 // --- Footer ---
@@ -106,13 +108,13 @@ h1, .shortDesc {
 .footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid var(--border-color);
   text-align: center;
   font-size: 0.85rem;
   color: #6c757d;
 
   a {
-    color: $primary-blue;
+    color: var(--primary-blue);
     text-decoration: none;
     font-weight: 600;
 

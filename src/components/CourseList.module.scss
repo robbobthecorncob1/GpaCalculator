@@ -3,12 +3,12 @@
 
 /// Main container for a single semester or group of courses.
 .courseBlock {
-  background: white;
-  border: 1px solid $border-color;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: $border-radius;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 /// Header section containing the semester/block title input.
@@ -54,17 +54,21 @@
   @include btn-base;
   padding: 8px 12px;
   color: white;
-  background-color: $danger-red;
-  &:hover { background-color: color.adjust($danger-red, $lightness: -10%); }
+  background-color: var(--danger-red);
+  &:hover { 
+    background-color: var(--danger-red-hover); 
+  }
 }
 
 /// Button to add a new course to the current block.
 .btnAdd {
   @include btn-base;
-  background-color: $light-gray;
-  border: 1px solid color.adjust($light-gray, $lightness: -10%);
-  color: #333;
+  background-color: var(--light-gray);
+  border: 1px solid var(--light-gray-border);
+  color: var(--text-primary);
   width: 100%;
   margin-top: 10px;
-  &:hover { background-color: color.adjust($light-gray, $lightness: -10%); }
+  &:hover { 
+    background-color: var(--light-gray-hover); 
+  }
 }
